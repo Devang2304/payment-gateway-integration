@@ -31,16 +31,29 @@ function App() {
       alert('Razoerpay sdk fialed to load!')
       return
     }
+
+    const data = await fetch('http://localhost:1337/razorpay', { method: 'POST' }).then((t) =>
+			t.json()
+		)
+
+    console.log(data);
+
     const  options = {
-      "key": __DEV__? "rzp_test_Bbqg7B2fi9OCuu" : 'GO_AND_GET_PRODCUTION_KEY', 
-      "amount": "50000", 
-      "currency": "INR",
-      "name": "Donation", 
-      "description": "Thank you for nothing please donate us something",
-      "image": "http://localhost:1337/logo.svg",
-      "order_id": "order_9A33XWu170gUtm", 
-      "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
-      "prefill": { 
+      key: __DEV__? "rzp_test_Bbqg7B2fi9OCuu" : 'GO_AND_GET_PRODCUTION_KEY', 
+      currency : data.currency,
+      amount : data.amount.toString(),
+      order_id : data.id,
+      name: "Donation", 
+      description: "Thank you for nothing please donate us something",
+      image: "http://localhost:1337/logo.svg",
+      handler: function(response){
+        alert(response.razorpay_payment_id);
+        alert(response.order_id);
+        alert(response.razorpay_signature);
+      },
+      // order_id: "order_9A33XWu170gUtm", 
+      // callback_url: "https://eneqd3r9zrjok.x.pipedream.net/",
+      prefill: { 
           name
       }
   }
