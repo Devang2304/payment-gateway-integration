@@ -7,5 +7,10 @@
     "start": "nodemon index.js"
   },
   "author": "Devang",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "razorpay": "^2.8.6",
+    "shortid": "^2.2.16"
+  }
 }
